@@ -1,0 +1,47 @@
+package Lab8;
+import java.util.*;
+
+public class word {
+    static void check(char mat[][],int nrows,int ncols,String word){
+        
+        boolean hasAtLeastOneChar = true;
+        for (int i = 0; i < nrows; i++) {
+            boolean found = false;
+            for (int j = 0; j < ncols; j++) {
+                if (word.indexOf(mat[i][j]) != -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                hasAtLeastOneChar = false;
+                break;
+            }
+        }   
+ 
+        if (hasAtLeastOneChar) {
+            System.out.println("1");
+        } else {
+            System.out.println("0");
+        }
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number of rows in the mat: ");
+        int nrows = sc.nextInt();
+        System.out.print("Enter the number of columns in the mat: ");
+        int ncols = sc.nextInt();
+        char[][] mat = new char[nrows][ncols];
+        System.out.println("Enter the elements of the mat:");
+        for (int i = 0; i < nrows; i++) {
+            for (int j = 0; j < ncols; j++) {
+                mat[i][j] = sc.next().charAt(0);
+            }
+        }
+
+        System.out.print("Enter a word to check: ");
+        String word = sc.next();
+        check(mat,nrows,ncols,word);
+        
+    }
+}
