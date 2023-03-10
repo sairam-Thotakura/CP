@@ -1,0 +1,56 @@
+import java.util.Scanner;
+import java.util.Arrays;
+class Q2{
+    static int removeDup(int a[], int n){
+        int[] temp = new int[n];
+        int j = 0;
+        for (int i=0; i<n-1; i++){
+            if (a[i] != a[i + 1]){
+                temp[j++] = a[i];
+            }
+        }
+        temp[j++] = a[n - 1];
+        for (int i=0; i<j; i++){
+            a[i] = temp[i];
+        }
+        return j;
+    }
+    public static void main(String args[]){
+        int HighestProduct = 1;
+        int HighestSum = 0;
+        int LowestProduct = 1;
+        int LowestSum = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the Size of the Array: ");
+        int n = sc.nextInt();
+        System.out.print("Enter the Range: ");
+        int m = sc.nextInt();
+        System.out.print("Enter the Array elements: ");
+        int arr[] = new int[n];
+        for(int i=0; i<n; i++){
+            arr[i] = sc.nextInt();
+        }
+        Arrays.sort(arr);
+        n = removeDup(arr, n);
+        // Highest product
+        for(int i=0; i<m; i++){
+            HighestProduct *= arr[n-i-1];
+        }
+        // Highest sum
+        for(int i=0; i<m; i++){
+            HighestSum += arr[n-i-1];
+        }
+        // Lowest product
+        for(int i=0; i<m; i++){
+            LowestProduct *= arr[i];
+        }
+        // Lowest Sum
+        for(int i=0; i<m; i++){
+            LowestSum += arr[i];
+        }
+        System.out.println("Highest product: "+HighestProduct);
+        System.out.println("Highest Sum: "+HighestSum);
+        System.out.println("Lowest Product: "+LowestProduct);
+        System.out.println("Lowest Sum: "+LowestSum);
+    }
+}
