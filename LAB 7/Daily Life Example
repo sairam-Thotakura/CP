@@ -1,0 +1,55 @@
+package Lab7;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+class StringIndex{
+    static List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> indices = new ArrayList<>();
+        Map<String, Integer> wordCount = new HashMap<>();
+        for (String i : words) {
+            wordCount.put(i, wordCount.getOrDefault(i, 0) + 1);
+        }
+
+        int wordLength = words[0].length();
+        int wordArrayLength = wordLength * words.length;
+
+        for (int i = 0; i <= s.length() - wordArrayLength; i++) {
+            String current = s.substring(i, i + wordArrayLength);
+            Map<String, Integer> wordMap = new HashMap<>();
+            int index = 0;
+            int j = 0;
+            while (index < words.length) {
+                String part = current.substring(j, j + wordLength);
+                wordMap.put(part, wordMap.getOrDefault(part, 0) + 1);
+                j += wordLength;
+                index++;
+            }
+            if (wordCount.equals(wordMap)) {
+                indices.add(i);
+            }
+        }
+        return indices;
+    }
+
+    public static void main(String arga[]){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter String s: ");
+        String s = sc.nextLine();
+
+        System.out.print("Enter size of words: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("Enter words of string array:");
+        String words[] = new String[n];
+        for(int i=0; i<n; i++){
+            words[i] = sc.nextLine();
+        }
+
+        List<Integer> indices = findSubstring(s,words);
+        System.out.println(indices);
+    }
+}

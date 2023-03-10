@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+class Q2{
+    static void halfRev(int a[], int n){
+        int t;
+        if(n%2 == 0) t = n/2;
+        else t = n/2 +1;
+        for(int i=0 ,j=(n/2 -1); i<j; i++,j--){
+            int temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+        }
+
+        for(int i=t,j=n-1; i<j; i++,j--){
+            int temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+        }
+    }
+
+    static void printArray(int a[], int n){
+        for(int i=0; i<n; i++){
+            System.out.print(a[i] + " ");
+        }
+    }
+
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the Size of an Array :");
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        System.out.println("Enter the array elements :");
+        for(int i=0; i<n; i++){
+            arr[i] = sc.nextInt();
+        }
+        halfRev(arr, n);
+        printArray(arr, n);
+    }
+
+}
