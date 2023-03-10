@@ -1,0 +1,14 @@
+package Lab6;
+import java.util.*;
+public class Remvowels {
+    public static void exclude(String str)
+    {
+        String s=str.replaceAll("[aeiouAEIOU]","");
+        System.out.println(s);
+    }
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        String str=sc.nextLine();
+        exclude(str);
+    }
+}
