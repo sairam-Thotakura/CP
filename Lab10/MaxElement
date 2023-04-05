@@ -1,0 +1,65 @@
+import java.util.*;
+public class MaxElement {
+    static class Node {
+        int key;
+        Node left, right;
+
+        public Node(int value) {
+            key = value;
+            left = right = null;
+        }
+    }
+
+    static Node root = null;
+
+    static void insert(int value) {
+        Node curNode = new Node(value);
+        if (root == null) {
+            root = curNode;
+        } else {
+            Node temp = root;
+            while (true) {
+                if (temp.key > value) {
+                    if (temp.left == null) {
+                        temp.left = curNode;
+                        break;
+                    }
+                    temp = temp.left;
+                } else {
+                    if (temp.right == null) {
+                        temp.right = curNode;
+                        break;
+                    }
+                    temp = temp.right;
+                }
+            }
+        }
+    }
+
+    static int findMax(Node node) {
+        if (node == null)
+            return -1;
+        int res = node.key;
+        int lres = findMax(node.left);
+        int rres = findMax(node.right);
+        if (lres > res)
+            res = lres;
+        if (rres > res)
+            res = rres;
+        return res;
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter total no.of nodes of the input Tree ( including NULL nodes ) : ");
+        int no = sc.nextInt();
+        System.out.println(
+                "Enter value of each node of the tree in level order ( if a node is NULL , enter -1 ) with spaces");
+        for (int i = 0; i < no; i++) {
+            int n = sc.nextInt();
+            insert(n);
+        }
+        System.out.println("The maximum value of the node key of given tree is " + findMax(root));
+        sc.close();
+    }
+}
