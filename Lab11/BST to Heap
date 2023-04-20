@@ -1,0 +1,91 @@
+package Lab11;
+
+import java.util.*;
+
+class bst_to_heap {
+    static int i;
+
+    static class Node {
+        int key;
+        Node left, right;
+
+        public Node(int value) {
+            key = value;
+            left = right = null;
+        }
+    }
+
+    static Node root = null;
+
+    static void insert(int value) {
+        Node curNode = new Node(value);
+        if (root == null) {
+            root = curNode;
+        } else {
+            Node temp = root;
+            while (true) {
+                if (temp.key > value) {
+                    if (temp.left == null) {
+                        temp.left = curNode;
+                        break;
+                    }
+                    temp = temp.left;
+                } else {
+                    if (temp.right == null) {
+                        temp.right = curNode;
+                        break;
+                    }
+                    temp = temp.right;
+                }
+            }
+        }
+    }
+
+    static void inorder(Node root, List<Integer> a) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left, a);
+        a.add(root.key);
+        inorder(root.right, a);
+    }
+
+    static void BstToHeap(Node root, List<Integer> a) {
+        if (root == null) {
+            return;
+        }
+        BstToHeap(root.left, a);
+        BstToHeap(root.right, a);
+        root.key = a.get(i++);
+    }
+
+    static void BstToHeapUtil(Node root) {
+        List<Integer> a = new LinkedList<Integer>();
+        int i = -1;
+        inorder(root, a);
+        BstToHeap(root, a);
+    }
+
+    static void postorder(Node root) {
+        if (root == null) {
+            return;
+        }
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.key + " ");
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter no of Nodes: ");
+        int no = sc.nextInt();
+        for (int i = 0; i < no; i++) {
+            int n = sc.nextInt();
+            insert(n);
+        }
+        BstToHeapUtil(root);
+        System.out.println("Post Order of the maximum heap is :");
+        postorder(root);
+        sc.close();
+    }
+}
